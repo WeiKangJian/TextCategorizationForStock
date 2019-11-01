@@ -20,7 +20,8 @@
 现有的特征抽取的方法很多，包括信息增益IG，局部文档频率和全局文档频率，对于文本分类选用局部DF或者IG都能达到良好的效果。传统的VSM向量空间都是根据这里的特征选取的特征词进行文本表示。
 
 本系统核心算法第一步根据IG或者局部DF先完成普通的特征选取。然后通过训练得到基于LDA隐主题模型选取的，隐主题对应的高比重的单词进行特征加强。即对于原来特征选择中没有出现的单词，但在LDA主题模型中出现的单词将其加入。完成LDA拓展的文本特征选取。获得的部分特征词如下：
-           ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101144343761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwODQzNjM5,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101144343761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwODQzNjM5,size_16,color_FFFFFF,t_70)
 
 ## :orange: LDA隐主题的抽取
 为了完成LDA拓展的特征选取，我们要先训练LDA得到隐藏的主题。找到每个主题下的对应关键词项。LDA的模块使用的是GitHub上成熟的LdaGibbsSampler的API模块。但为了得到短文本的LDA主题模型，我们需要将这上千条数据划分为上千个单独的短文本文档。具体实现在本系统的LdaOfSingleDocument中：
