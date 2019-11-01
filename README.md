@@ -24,11 +24,15 @@
 
 ## :orange: LDA隐主题的抽取
 为了完成LDA拓展的特征选取，我们要先训练LDA得到隐藏的主题。找到每个主题下的对应关键词项。LDA的模块使用的是GitHub上成熟的LdaGibbsSampler的API模块。但为了得到短文本的LDA主题模型，我们需要将这上千条数据划分为上千个单独的短文本文档。具体实现在本系统的LdaOfSingleDocument中：
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101144454782.png)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019110114450220.png)
+
 将数据处理成了lda可以处理的格式后，我们设定预期的主题是3个，分别对应股市的乐观，悲观，和中立三种。在进行LDA主题的处理后，我们得到下面的隐主题。
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/201911011445351.png)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101144541407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwODQzNjM5,size_16,color_FFFFFF,t_70)
+
    随着隐主题的划分对应的关键字信息，恰好对应的股市舆情为无关（topic0）,乐观（topic1）, 悲观（topic2）。即LDA隐主题的特征抽取给我们提供了关键的数据。
 ***
 
@@ -44,18 +48,23 @@
 ***
 ## :wrench: 系统使用模块说明
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101145035660.png)
+
 工具类的定义，和爬虫的编写，以及用IKAnlsaly进行文本分词的预处理
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101145107844.png)
+
 两种不同的文本表示方式，用来优化和对比
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101145132687.png)
+
 LDA隐主题抽取的必要部件，系统的先进性核心部分，包括对原有文本的分成单独文本，和对隐藏主题的抽取，以及设置LDA隐主题的个数和每个主题选取几个关键字。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101145205924.png)
+
 SVM模型训练必要文件，没有进行优化。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191101145246768.png)
+
 LDA可拓展的核心部分，系统先进性的核心核心部分，包括数据的归一化和LDA拓展隐主题的特征词项目的加入。
 
 
